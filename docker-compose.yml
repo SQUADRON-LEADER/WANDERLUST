@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # Application Service
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - ATLASDB_URL=${ATLASDB_URL}
+      - SECRET=${SECRET}
+      - CLOUD_NAME=${CLOUD_NAME}
+      - CLOUD_API_KEY=${CLOUD_API_KEY}
+      - CLOUD_API_SECRET=${CLOUD_API_SECRET}
+      - MAP_TOKEN=${MAP_TOKEN}
+    depends_on:
+      - mongo
+    restart: unless-stopped
+    networks:
+      - wanderlust-network
+
+  # MongoDB Service (for local development)
+  mongo:
+    image: mongo:7.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    restart: unless-stopped
+    networks:
+      - wanderlust-network
+
+volumes:
+  mongo-data:
+    driver: local
+
+networks:
+  wanderlust-network:
+    driver: bridge

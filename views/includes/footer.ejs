@@ -1,0 +1,178 @@
+<style>
+.footer {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #e8eaed;
+    padding: 50px 0 25px 0;
+    margin-top: 50px;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 35px;
+}
+
+.footer-section h4 {
+    color: #ffd700;
+    font-size: 1.3rem;
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.footer-section p, .footer-section a {
+    color: #c9d1d9;
+    text-decoration: none;
+    line-height: 1.7;
+    margin-bottom: 12px;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: #ffd700;
+    text-decoration: none;
+    transform: translateX(5px);
+}
+
+.social-links {
+    display: flex;
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    border-radius: 12px;
+    color: white;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+.social-links a:hover {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #1a1a2e;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 215, 0, 0.3);
+    padding-top: 25px;
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: #c9d1d9;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.developer-info {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.08));
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.developer-info p {
+    color: #e8eaed;
+    margin-bottom: 8px;
+    font-weight: 400;
+}
+
+.developer-info .name {
+    color: #ffd700;
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+    .footer-main {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+}
+</style>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-main">
+            <!-- About Section -->
+            <div class="footer-section">
+                <h4><i class="fa-solid fa-umbrella-beach"></i> Nestigo</h4>
+                <p>Your gateway to extraordinary travel experiences. Discover unique accommodations, from cozy rooms to luxury retreats, in destinations around the world.</p>
+                <p><i class="fa-solid fa-envelope"></i> support@nestigo.com</p>
+                <p><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="/listings">Explore Listings</a>
+                <a href="/listings/new">List Your Property</a>
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact Us</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms & Conditions</a>
+            </div>
+
+            <!-- Developer Section -->
+            <div class="footer-section">
+                <h4>Developer</h4>
+                <div class="developer-info">
+                    <p class="name">Aayush Kumar</p>
+                    <p><i class="fa-solid fa-code"></i> Full Stack Developer</p>
+                    <p><i class="fa-solid fa-graduation-cap"></i> Computer Science Student</p>
+                    <p><i class="fa-solid fa-location-dot"></i> India</p>
+                    
+                    <div class="social-links">
+                        <a href="https://github.com/SQUADRON-LEADER" target="_blank" title="GitHub">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/aayush-kumar-146252314/" target="_blank" title="LinkedIn">
+                            <i class="fa-brands fa-linkedin"></i>
+                        </a>
+                        <a href="https://www.instagram.com/aayush_kr_gupta/" target="_blank" title="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://twitter.com/aayush_kumar_gupta" target="_blank" title="Twitter">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                        <a href="mailto:aayush05.af@example.com" title="Email">
+                            <i class="fa-solid fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Nestigo Private Limited. All rights reserved. | Crafted with ❤️ by Aayush Kumar</p>
+        </div>
+    </div>
+</footer>
