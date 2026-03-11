@@ -1,4 +1,4 @@
-# Wanderlust - Travel Listings Platform
+# NESTIGO - Travel Listings Platform
 
 A full-stack web application for listing and discovering travel destinations. Built with Node.js, Express, MongoDB, and EJS templating.
 
