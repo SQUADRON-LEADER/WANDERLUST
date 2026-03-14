@@ -153,18 +153,11 @@ air/
 
 ## Deployment
 
-**Quick Deploy to Vercel**: See [VERCEL_QUICK_START.md](VERCEL_QUICK_START.md) for fastest deployment!
+Use [DEPLOYMENT.md](DEPLOYMENT.md) for complete step-by-step setup of both frontend and backend in production.
 
-See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions for various platforms:
-- **Vercel** ⚡ (Recommended - Serverless, Free Tier, Auto-deploy)
-- Render.com
-- Heroku
-- Railway
-- AWS/DigitalOcean/VPS
-
-**Platform-Specific Guides:**
-- [Vercel Detailed Guide](VERCEL_DEPLOYMENT.md)
-- [General Deployment Guide](DEPLOYMENT.md)
+Recommended platform options:
+- Render (single full-stack service)
+- Vercel (serverless)
 
 ## Development
 
