@@ -13,7 +13,7 @@ const Listing = require('./models/listing.js');
 const path = require('path');
 const methodOverride = require('method-override');
 const isProduction = process.env.NODE_ENV === 'production';
-const atlasUrl = process.env.ATLASDB_URL;
+const atlasUrl = process.env.ATLASDB_URL || process.env.MONGODB_URL || process.env.MONGO_URL || process.env.DATABASE_URL;
 const MONGODB_URL = atlasUrl || (isProduction ? null : "mongodb://127.0.0.1:27017/wanderlust");
 const ejsMate = require('ejs-mate');
 const wrapAsync = require("./utils/wrapAsync.js");
@@ -40,7 +40,7 @@ let dbConnectionError = null;
 
 // Connect to MongoDB first
 if (!MONGODB_URL) {
-  dbConnectionError = new Error('ATLASDB_URL is missing in production environment variables');
+  dbConnectionError = new Error('MongoDB URL is missing. Set one of: ATLASDB_URL, MONGODB_URL, MONGO_URL, or DATABASE_URL');
   console.error('MongoDB configuration error:', dbConnectionError.message);
 } else {
   mongoose.connect(MONGODB_URL, { serverSelectionTimeoutMS: 5000 })
@@ -66,16 +66,21 @@ app.use(methodOverride('_method'));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, '/public')));
 
+// Use Mongo-backed sessions only when DB URL is available.
+const sessionStore = MONGODB_URL
+  ? MongoStore.create({
+      mongoUrl: MONGODB_URL,
+      touchAfter: 24 * 3600, // Lazy session update (in seconds)
+    })
+  : undefined;
+
 //session setup - using mongoUrl instead of client
 const sessionOptions = {
   secret: process.env.SECRET || "mysupersecretcode",
   resave: false,
   saveUninitialized: true,
   proxy: process.env.NODE_ENV === 'production',
-  store: MongoStore.create({
-    mongoUrl: MONGODB_URL,
-    touchAfter: 24 * 3600, // Lazy session update (in seconds)
-  }),
+  ...(sessionStore ? { store: sessionStore } : {}),
   cookie:{
     maxAge: 1000 * 60 * 60 * 24 * 7, 
     httpOnly: true,

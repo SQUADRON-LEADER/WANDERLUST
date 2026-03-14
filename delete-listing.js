@@ -3,7 +3,7 @@ const Listing = require('./models/listing.js');
 
 async function deleteListing() {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/nestigo');
+        await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
         console.log('Connected to database...');
         
         // First, let's see all listings

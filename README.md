@@ -1,6 +1,6 @@
-# NESTIGO - Travel Listings Platform
+# Wanderlust - Travel Listings Platform
 
-A full-stack web application for listing and discovering travel destinations. Built with Node.js, Express, MongoDB, and EJS templating.
+Wanderlust is a full-stack travel listing platform to discover, create, and review stays around the world. It is built with Node.js, Express, MongoDB, and EJS.
 
 ## Features
 
@@ -159,6 +159,8 @@ Recommended platform options:
 - Render (single full-stack service)
 - Vercel (serverless)
 
+On Vercel, always set your database URL in project environment variables before deploying.
+
 ## Development
 
 ### Running Tests
@@ -183,12 +185,17 @@ npm test
 |----------|-------------|----------|
 | `NODE_ENV` | Environment (development/production) | Yes |
 | `PORT` | Server port | No (default: 8080) |
-| `ATLASDB_URL` | MongoDB connection string | Yes |
+| `ATLASDB_URL` | Primary MongoDB connection string | Yes* |
+| `MONGODB_URL` | Alternate MongoDB connection string key | Yes* |
+| `MONGO_URL` | Alternate MongoDB connection string key | Yes* |
+| `DATABASE_URL` | Alternate MongoDB connection string key | Yes* |
 | `SECRET` | Session secret key | Yes |
 | `CLOUD_NAME` | Cloudinary cloud name | Yes |
 | `CLOUD_API_KEY` | Cloudinary API key | Yes |
 | `CLOUD_API_SECRET` | Cloudinary API secret | Yes |
 | `MAP_TOKEN` | Mapbox access token | Yes |
+
+`Yes*` means one of these MongoDB keys must be set (not all): `ATLASDB_URL`, `MONGODB_URL`, `MONGO_URL`, or `DATABASE_URL`.
 
 ## Security
 
@@ -198,6 +205,11 @@ npm test
 - Input validation with Joi schemas
 - MongoDB injection prevention via Mongoose
 - Environment variables for sensitive data
+
+## Notes
+
+- This is a single Express + EJS project, so `npm run dev` runs both frontend pages and backend routes together.
+- For MongoDB connection, set at least one of: `ATLASDB_URL`, `MONGODB_URL`, `MONGO_URL`, or `DATABASE_URL`.
 
 ## Contributing
 
