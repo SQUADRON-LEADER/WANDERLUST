@@ -40,7 +40,10 @@ mongoose.connect(MONGODB_URL)
   })
   .catch(err => {
     console.error('Error connecting to MongoDB:', err);
-    process.exit(1);
+    // Never force-exit in serverless environments; return request-level errors instead.
+    if (process.env.VERCEL !== '1') {
+      process.exit(1);
+    }
   });
 
 app.set('view engine', 'ejs');

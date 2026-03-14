@@ -1,7 +1,14 @@
 const Listing = require("../models/listing.js");
 const mapToken = process.env.MAP_TOKEN;
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
-const geocodingClient = mbxGeocoding({ accessToken: mapToken });
+const ExpressError = require("../utils/ExpressError.js");
+
+const getGeocodingClient = () => {
+    if (!mapToken) {
+        throw new ExpressError(500, "MAP_TOKEN is missing in server environment variables");
+    }
+    return mbxGeocoding({ accessToken: mapToken });
+};
 
 
 module.exports.index = async (req, res) => {
@@ -53,6 +60,7 @@ module.exports.showListing = async (req, res, next) => {
 };
 
 module.exports.createListing = async (req, res, next) => {
+    const geocodingClient = getGeocodingClient();
     // Get coordinates from location using Mapbox Geocoding
     let coordinate = await geocodingClient.forwardGeocode({
         query: req.body.listing.location,
@@ -80,6 +88,9 @@ module.exports.createListing = async (req, res, next) => {
     
     // Handle image upload from Cloudinary
     if (req.file) {
+        if (!req.file.path || !req.file.filename) {
+            throw new ExpressError(500, "Cloudinary is not configured. Set CLOUD_NAME, CLOUD_API_KEY, and CLOUD_API_SECRET.");
+        }
         newListing.image = {
             filename: req.file.filename,
             url: req.file.path
@@ -117,6 +128,7 @@ module.exports.updateListing = async (req, res, next) => {
     // Get coordinates if location changed
     if (listingData.location) {
         try {
+            const geocodingClient = getGeocodingClient();
             let coordinate = await geocodingClient.forwardGeocode({
                 query: listingData.location,
                 limit: 1,
@@ -137,6 +149,9 @@ module.exports.updateListing = async (req, res, next) => {
     
     // Handle image upload from Cloudinary
     if (req.file) {
+        if (!req.file.path || !req.file.filename) {
+            throw new ExpressError(500, "Cloudinary is not configured. Set CLOUD_NAME, CLOUD_API_KEY, and CLOUD_API_SECRET.");
+        }
         listingData.image = {
             filename: req.file.filename,
             url: req.file.path
