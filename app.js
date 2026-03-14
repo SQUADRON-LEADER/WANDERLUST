@@ -28,6 +28,11 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./models/user.js');
 
+if (process.env.NODE_ENV === 'production') {
+  // Required on hosts like Render/Heroku so secure cookies work behind reverse proxies.
+  app.set('trust proxy', 1);
+}
+
 // Connect to MongoDB first
 mongoose.connect(MONGODB_URL)
   .then(() => {
@@ -50,6 +55,7 @@ const sessionOptions = {
   secret: process.env.SECRET || "mysupersecretcode",
   resave: false,
   saveUninitialized: true,
+  proxy: process.env.NODE_ENV === 'production',
   store: MongoStore.create({
     mongoUrl: MONGODB_URL,
     touchAfter: 24 * 3600, // Lazy session update (in seconds)
@@ -57,6 +63,7 @@ const sessionOptions = {
   cookie:{
     maxAge: 1000 * 60 * 60 * 24 * 7, 
     httpOnly: true,
+    sameSite: 'lax',
     secure: process.env.NODE_ENV === "production", // HTTPS only in production
   },
 };
@@ -76,6 +83,10 @@ app.use((req, res, next) => {
   res.locals.currUser = req.user;
   res.locals.error = req.flash('error');
   next();
+});
+
+app.get('/health', (req, res) => {
+  res.status(200).json({ ok: true });
 });
 
 
