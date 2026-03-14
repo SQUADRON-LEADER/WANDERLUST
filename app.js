@@ -12,7 +12,9 @@ const mongoose = require('mongoose');
 const Listing = require('./models/listing.js');
 const path = require('path');
 const methodOverride = require('method-override');
-const MONGODB_URL = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/wanderlust";
+const isProduction = process.env.NODE_ENV === 'production';
+const atlasUrl = process.env.ATLASDB_URL;
+const MONGODB_URL = atlasUrl || (isProduction ? null : "mongodb://127.0.0.1:27017/wanderlust");
 const ejsMate = require('ejs-mate');
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
@@ -33,18 +35,29 @@ if (process.env.NODE_ENV === 'production') {
   app.set('trust proxy', 1);
 }
 
+let isDbConnected = false;
+let dbConnectionError = null;
+
 // Connect to MongoDB first
-mongoose.connect(MONGODB_URL)
-  .then(() => {
-    console.log('Connected to MongoDB');
-  })
-  .catch(err => {
-    console.error('Error connecting to MongoDB:', err);
-    // Never force-exit in serverless environments; return request-level errors instead.
-    if (process.env.VERCEL !== '1') {
-      process.exit(1);
-    }
-  });
+if (!MONGODB_URL) {
+  dbConnectionError = new Error('ATLASDB_URL is missing in production environment variables');
+  console.error('MongoDB configuration error:', dbConnectionError.message);
+} else {
+  mongoose.connect(MONGODB_URL, { serverSelectionTimeoutMS: 5000 })
+    .then(() => {
+      isDbConnected = true;
+      dbConnectionError = null;
+      console.log('Connected to MongoDB');
+    })
+    .catch(err => {
+      dbConnectionError = err;
+      console.error('Error connecting to MongoDB:', err.message || err);
+      // Never force-exit in serverless environments; return request-level errors instead.
+      if (process.env.VERCEL !== '1') {
+        process.exit(1);
+      }
+    });
+}
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -89,7 +102,18 @@ app.use((req, res, next) => {
 });
 
 app.get('/health', (req, res) => {
+  if (!isDbConnected) {
+    return res.status(503).json({ ok: false, message: 'Database not connected' });
+  }
   res.status(200).json({ ok: true });
+});
+
+app.use((req, res, next) => {
+  if (!isDbConnected) {
+    const msg = dbConnectionError?.message || 'Database not connected';
+    return next(new ExpressError(500, `Database connection error: ${msg}`));
+  }
+  next();
 });
 
 
