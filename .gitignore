@@ -183,3 +183,50 @@ cloudformation-template-*.yaml
 # Local configuration files
 local.json
 local-config.json
+
+# Docker files (uncomment if not needed for deployment)
+# docker-compose.yml
+# Dockerfile
+# .dockerignore
+
+# Development and initialization scripts
+# init/
+# delete-listing.js
+
+# Documentation files (uncomment if you don't want to deploy them)
+# README.md
+# CHANGELOG.md
+# CONTRIBUTING.md
+
+# Test and development data
+# init/data.js
+
+# Source maps
+*.map
+*.map.js
+
+# ESLint
+.eslintrc
+.eslintrc.js
+.eslintrc.json
+.eslintignore
+
+# Prettier
+.prettierrc
+.prettierrc.js
+.prettierrc.json
+.prettierignore
+
+# Git files
+.gitattributes
+.gitkeep
+
+# CI/CD files (uncomment if not needed)
+# .github/
+# .gitlab-ci.yml
+# .circleci/
+
+# Local development files
+schema.js.backup
+*-old.*
+*-backup.*
