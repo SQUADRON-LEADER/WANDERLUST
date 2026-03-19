@@ -1,3 +1,4 @@
+<img width="269" height="58" alt="image" src="https://github.com/user-attachments/assets/32405a02-4f29-44d7-9fa2-84295fb2e60f" />
 
 
 # Wanderlust - Travel Listings Platform
