@@ -179,16 +179,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
----
 
-### ✅ What this means
-
-* ✔️ You can freely use this project
-* ✔️ You can modify and distribute it
-* ✔️ You can use it commercially
-* ❗ You must include the original license and credit the author
-
----
 
 ---
 
