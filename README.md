@@ -117,7 +117,6 @@ npm start
 
 ## 📸 Screenshot
 
-* Home Page
 * Listings Page
 * Create Listing
 * Login/Register
