@@ -115,9 +115,7 @@ npm start
 
 ---
 
-## 📸 Screenshots
-
-> Add your screenshots here
+## 📸 Screenshot
 
 * Home Page
 * Listings Page
