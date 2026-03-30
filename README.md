@@ -117,7 +117,6 @@ npm start
 
 ## 📸 Screenshot
 
-* Login/Register
 
 ---
 
