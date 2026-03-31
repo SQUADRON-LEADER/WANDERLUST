@@ -127,7 +127,7 @@ npm start
 
 ## ⚙️ Future Enhancements
 
-* 🌐 Deployment on cloud (Render / AWS)
+* 🌐 Deployment on cloud (Render)
 * 📱 Mobile responsive improvements
 * 🔎 Advanced search & filters
 * 💳 Payment integration
