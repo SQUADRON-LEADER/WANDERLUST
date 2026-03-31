@@ -121,6 +121,7 @@ npm start
 
 <img width="1875" height="855" alt="Screenshot 2026-03-30 222028" src="https://github.com/user-attachments/assets/f6e9d98a-b1a6-411a-b908-6efddab56bd6" />
 
+<img width="1903" height="861" alt="Screenshot 2026-03-30 222046" src="https://github.com/user-attachments/assets/36a8fa31-6062-4648-9a94-da337ca331dc" />
 
 ---
 
