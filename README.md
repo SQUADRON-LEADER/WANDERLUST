@@ -152,7 +152,7 @@ This project is licensed under the **MIT License**, one of the most permissive a
 
 ---
 
-### 📜 MIT License (Full Text)
+### 📜 MIT License 
 
 ```
 MIT License
